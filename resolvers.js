@@ -1,16 +1,23 @@
 const users = (root, args, ctx) => {
   const User = ctx.mongoose.model('User');
-  return User.find();
-};
 
-const books = (user, args, ctx) => {
-  const Book = ctx.mongoose.model('Book');
-  return Book.count({ userId: user.id });
-};
+  const aggregator = User.aggregate()
+    .lookup({ from: "books", localField: "_id", foreignField: "userId", as: "books" })
+    .lookup({ from: "movies", localField: "_id", foreignField: "userId", as: "movies" })
+    .project({
+      _id: 0,
+      id: '$_id',
+      name: 1,
+      email: 1,
+      shareBooks: 1,
+      shareMovies: 1,
+      books: { $size: "$books" },
+      movies: { $size: "$movies" },
+      total: { $add: [{ $size: '$books' }, { $size: '$movies' }] },
+    })
+    .sort({ total: -1, name: 1 });
 
-const movies = (user, args, ctx) => {
-  const Movie = ctx.mongoose.model('Movie');
-  return Movie.count({ userId: user.id });
+    return aggregator;
 };
 
 const resolvers = {
@@ -18,10 +25,6 @@ const resolvers = {
     users,
     books: () => [],
     movies: () => [],
-  },
-  User: {
-    books,
-    movies
   }
 };
 
