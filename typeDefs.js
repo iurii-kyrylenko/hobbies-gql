@@ -52,8 +52,7 @@ const typeDefs = `
   }
 
   type Query {
-    users: [User]!
-    pgUsers(search: String = "", first: Int = 5, after: String = ""): UserConnection
+    users(search: String = "", first: Int = 0, after: String = ""): UserConnection
     books(userId: ID!): [Book]!
     movies(userId: ID!): [Movie]!
   }
