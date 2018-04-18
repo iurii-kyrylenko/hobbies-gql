@@ -52,7 +52,10 @@ const typeDefs = `
   }
 
   type Query {
+    test1: [User]
+    test2: [User]
     users(search: String = "", first: Int = 0, after: String = ""): UserConnection
+    users2(search: String = "", last: Int = 0, before: String = ""): UserConnection
     books(userId: ID!): [Book]!
     movies(userId: ID!): [Movie]!
   }
