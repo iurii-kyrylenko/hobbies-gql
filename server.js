@@ -3,33 +3,18 @@ require('./config/db');
 
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-const { makeExecutableSchema } = require('graphql-tools');
-
+const { ApolloServer } = require('apollo-server-express');
 const { typeDefs } = require('./typeDefs');
 const { resolvers } = require('./resolvers');
 
-// Put together a schema
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-});
-
-const context = {
-  mongoose
-};
-
-// Initialize the app
+const PORT = 4000;
 const app = express();
 
-// The GraphQL endpoint
-app.use('/graphql', bodyParser.json(), graphqlExpress({ schema, context }));
+const context = { mongoose };
+const server = new ApolloServer({ typeDefs, resolvers, context });
+server.applyMiddleware({ app });
 
-// GraphiQL, a visual editor for queries
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
-// Start the server
-app.listen(3000, () => {
-  console.log('Go to http://localhost:3000/graphiql to run queries!');
+app.listen({ port: PORT }, () => {
+  console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
 });
