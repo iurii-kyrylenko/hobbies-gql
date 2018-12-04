@@ -34,9 +34,11 @@ const typeDefs = gql`
     email: String
     shareBooks: Boolean
     shareMovies: Boolean
-    books: Int
-    movies: Int
+    bookCount: Int
+    movieCount: Int
     total: Int
+    # books: [Book]
+    # movies: [Movie]
   }
 
   type UserConnection {

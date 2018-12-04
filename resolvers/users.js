@@ -23,9 +23,11 @@ const users = async (root, { search, first, after }, ctx) => {
       email: 1,
       shareBooks: 1,
       shareMovies: 1,
-      books: { $size: "$books" },
-      movies: { $size: "$movies" },
+      bookCount: { $size: "$books" },
+      movieCount: { $size: "$movies" },
       total: { $add: [{ $size: '$books' }, { $size: '$movies' }] },
+      // books: 1,
+      // movies: 1
     })
     .sort({ total: -1, name: 1 });
 
