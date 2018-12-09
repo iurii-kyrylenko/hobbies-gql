@@ -2,13 +2,13 @@
 
 ```
 1. Install dependencies:
-> yarn
+> npm i
 
 2. Set connection string to mongoDB in .env
 
 3. Run server:
-> yarn start
+> npm start
 
 4. Navigate to:
-> http://localhost:3000/graphiq
+> http://localhost:4000/graphql
 ```
