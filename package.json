@@ -9,7 +9,7 @@
   "author": "Iurii Kyrylenko",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^2.2.5",
+    "apollo-server-express": "^2.14.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.4",
     "graphql": "^14.0.2",
