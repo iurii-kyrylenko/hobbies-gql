@@ -1,0 +1,17 @@
+docker-compose up
+
+docker ps
+docker exec <container_id> -it bash
+
+-- inside container --
+
+# -- atlas shell --
+# mongosh "mongodb+srv://hobbies.rztmz.mongodb.net/hobbies" --username <username> --password <password>
+-- atlas dump --
+mongodump --uri "mongodb+srv://hobbies.rztmz.mongodb.net/hobbies" --username <username> --password <password> --db hobbies --out /mnt/dump
+-- restore to local --
+mongorestore --verbose /mnt/dump
+-- local shell --
+mongosh
+
+docker-compose down
