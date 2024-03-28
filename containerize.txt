@@ -1,7 +1,7 @@
 docker-compose up
 
 docker ps
-docker exec <container_id> -it bash
+docker exec -it <container_id> bash
 
 -- inside container --
 
